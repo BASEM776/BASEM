@@ -1,0 +1,27 @@
+
+body{
+   background-color: black;
+    align-self: center;
+}.wave{
+    font-size: 60PX;
+    color: red;
+    -moz-box-reflect:below -20PX
+    linear-gradient(transparent,rgba(0,0,0,0.2));
+}
+.wave span{
+    font-family: "Alfa Slab One",cursive;
+    display: inline-block;
+    animation: wave-anim 1s infinite;
+    animation-delay:calc(0.1s * var(--item));
+}
+@keyframes wave-anim{
+    0%, 40%, 100%{
+        transform: translateY(0);
+}
+
+20% {
+     transform: translateY(-40px);
+}
+  from{color :}
+    to{color:orange;color:yellow;}*/
+    
