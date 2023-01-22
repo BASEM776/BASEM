@@ -149,8 +149,16 @@ B{color: aqua;
  font-size: 25PX;
 }
 
- body{
+  body{
 
-            background-color: rgb(25, 33, 66);
+            /*! background-color: rgb(25, 33, 66); */
 
+            background-image: linear-gradient(to,#4affde 0%,#5b9dff 40%,#d06bff 60%,#ff34d2 100%);
+            animation: movinGradient 5s linear infinite alternate;
+            background-image: linear-gradient(to right,#4affde 0%,#5b9dff 40%,#d06bff 60%,#ff34d2 100%);
+            background-size: 200% 200%;
         }
+@keyframes movinGradient {
+    from { background-position: 0 0;}
+    to { background-position: 100% 100%;}
+}
