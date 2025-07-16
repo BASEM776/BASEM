@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Secret Sister Surprise</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .photo-frame {
+    width: 200px;  /* Adjust width if needed */
+    height: 200px; /* Adjust height if needed */
+}
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffcce6, #ff99cc);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transform: scale(0.95);
+            transition: transform 0.5s ease;
+        }
+        
+        .container:hover {
+            transform: scale(1);
+        }
+        
+        h1 {
+            color: #ff3399;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        p.instruction {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+        
+        /* Input Styles */
+        .input-group {
+            position: relative;
+            margin: 0 auto 25px;
+            width: 80%;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 3px solid #ff3399;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 51, 153, 0.2);
+        }
+        
+        input:focus {
+            border-color: #ff0066;
+            box-shadow: 0 4px 20px rgba(255, 0, 102, 0.3);
+        }
+        
+        /* Button Styles */
+        button {
+            background: linear-gradient(45deg, #ff3399, #ff0066);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 0, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 102, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            pointer-events: none;
+            transition: all 0.5s;
+        }
+        
+        button:hover::after {
+            left: 100%;
+        }
+        
+        /* Message Styles */
+        #message {
+            margin-top: 30px;
+            font-size: 1.3rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s;
+        }
+        
+        .special-message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0066;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: rainbow 3s infinite, pulse 1.5s infinite;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes rainbow {
+            0% { color: #ff0066; }
+            20% { color: #ff6600; }
+            40% { color: #ffcc00; }
+            60% { color: #33cc33; }
+            80% { color: #3399ff; }
+            100% { color: #cc33ff; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Confetti Styles */
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Heart Styles */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+            font-size: 2rem;
+            color: #ff0066;
+            z-index: 5;
+        }
+        
+        /* Photo Frame */
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border: 10px solid white;
+            border-radius: 10px;
+            margin: 30px auto;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: rotate(-5deg);
+            transition: all 0.5s;
+            opacity: 0;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-frame.show {
+            opacity: 1;
+            transform: rotate(0);
+            animation: photoEntrance 1s ease-out;
+        }
+        
+        @keyframes photoEntrance {
+            0% { transform: scale(0.1) rotate(-30deg); opacity: 0; }
+            80% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        
+        .photo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        /* Hidden Surprise */
+        .hidden-surprise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+        
+        .hidden-surprise.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .hidden-surprise h2 {
+            color: #fff;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: rainbow 3s infinite;
+        }
+        
+        .hidden-surprise p {
+            color: #fff;
+            font-size: 1.5rem;
+            max-width: 80%;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .close-surprise {
+            background: #ff0066;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-surprise:hover {
+            background: #ff3399;
+            transform: scale(1.1);
+        }
+        
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            font-size: 3rem;
+            animation-delay: 0s;
+        }
+        
+        .floating:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            font-size: 4rem;
+            animation-delay: 1s;
+        }
+        
+        .floating:nth-child(3) {
+            bottom: 15%;
+            left: 20%;
+            font-size: 3.5rem;
+            animation-delay: 2s;
+        }
+        
+        .floating:nth-child(4) {
+            bottom: 25%;
+            right: 10%;
+            font-size: 2.5rem;
+            animation-delay: 3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating" style="color: #ff99cc;">♥</div>
+    <div class="floating" style="color: #ff6699;">★</div>
+    <div class="floating" style="color: #ff3399;">♪</div>
+    <div class="floating" style="color: #ff0066;">♫</div>
+    
+<div class="container">
+        <h1>Top Secret Sister Challenge!</h1>
+        <p class="instruction">Enter the magic name to unlock an amazing surprise:</p>
+        
+        <div class="input-group">
+            <input type="text" id="nameInput" placeholder="Type the secret name here">
+        </div>
+        
+        <button onclick="checkName()">Reveal Surprise!</button>
+        
+        <div id="message"></div>
+        
+        <div class="photo-frame" id="photoFrame">
+            <img src="https://www.icegif.com/wp-content/uploads/icegif-4786.gif" alt="Best Sister Ever" id="sisterPhoto">
+        </div>
+    </div>.
+    
+    <div class="hidden-surprise" id="hiddenSurprise">
+        <h2>✨      ELA AIS THE BEST SISTER IN THE WORLD! ✨</h2>
+        <p>You're amazing, kind, and wonderful! This surprise was made just for you because you're so special!</p>
+        <button class="close-surprise" onclick="closeSurprise()">Thank You! ♥</button>
+    </div>
+    
+    <audio id="successSound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3" preload="auto"></audio>
+    <audio id="celebrationSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3" preload="auto"></audio>
+    
+    <script>
+        // Colors for confetti
+        const colors = ['#ff0066', '#ff3399', '#ff66b2', '#ff99cc', '#ffccff', '#ffffff'];
+        
+        // Shapes for confetti
+        const shapes = ['♥', '★', '♦', '♠', '♣', '♪', '♫'];
+        
+        function checkName() {
+            const input = document.getElementById('nameInput').value.toLowerCase();
+            const message = document.getElementById('message');
+            const photoFrame = document.getElementById('photoFrame');
+            
+            if (input === 'elaa') {
+                // Play success sound
+                document.getElementById('successSound').play();
+                
+                // Show message with animations
+                message.innerHTML = '<div class="special-message">elaa is the best sister forever! ♥</div>';
+                
+                // Show photo frame
+                photoFrame.classList.add('show');
+                
+                // Create confetti
+                createConfetti();
+                
+                // Create floating hearts
+                createHearts();
+                
+                // Play celebration sound after delay
+                setTimeout(() => {
+                    document.getElementById('celebrationSound').play();
+                }, 1000);
+                
+                // Show hidden surprise after delay
+                setTimeout(() => {
+                    document.getElementById('hiddenSurprise').classList.add('show');
+                }, 3000);
+            } else {
+                message.innerHTML = '<div style="color:#ff0066; animation: shake 0.5s;">Oops! That\'s not the right name. Try again!</div>';
+                
+                // Add shake animation to container
+                document.querySelector('.container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.container').style.animation = '';
+                }, 500);
+            }
+        }
+        
+        function createConfetti() {
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random position
+                confetti.style.left = Math.random() * 100 + 'vw';
+                
+                // Random properties
+                const size = Math.random() * 15 + 5;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Random color
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random shape (sometimes use emoji)
+                if (Math.random() > 0.7) {
+                    confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.style.fontSize = size + 'px';
+                    confetti.style.lineHeight = size + 'px';
+                    confetti.style.textAlign = 'center';
+                    confetti.style.backgroundColor = 'transparent';
+                }
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 2;
+                confetti.style.animationDuration = duration + 's';
+                
+                // Random delay
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                heart.style.fontSize = size + 'rem';
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 2;
+                heart.style.animationDuration = duration + 's';
+                
+                // Random delay
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                
+                document.body.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        function closeSurprise() {
+            document.getElementById('hiddenSurprise').classList.remove('show');
+        }
+        
+        // Add shake animation to CSS dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20% { transform: translateX(-10px); }
+                40% { transform: translateX(10px); }
+                60% { transform: translateX(-10px); }
+                80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
